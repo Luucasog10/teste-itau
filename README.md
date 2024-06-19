@@ -15,11 +15,17 @@
 
 ## Endpoints
 - GET /api/users
+  - Coletar todos os usuários da base de dados
 - GET /api/users/{id}
+  - Coletar usuário apartir de um ID específico
 - POST /api/users
-- PUT /api/users/{id}
+  - Inserir um novo usuário na base de dados
+- PATCH /api/users/{id}
+  - Atualizar as informações de um usuário na base de dados apartir de um id
 - DELETE /api/users/{id}
+  - Deletar um usuário na base de dados apartir de um id
 - POST /api/users/{id}/report
+  - Salvar relatório de um usuário no s3
 
 ## Execução via Docker
 - Executar comando: docker compose up
