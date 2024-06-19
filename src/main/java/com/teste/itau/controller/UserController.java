@@ -1,5 +1,6 @@
 package com.teste.itau.controller;
 
+import com.teste.itau.exception.EmailAlreadyExistsException;
 import com.teste.itau.model.User;
 import com.teste.itau.service.ReportService;
 import com.teste.itau.service.UserService;
@@ -31,8 +32,13 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        try {
+            userService.createUser(user);
+            return ResponseEntity.ok("Usuário registrado com sucesso.");
+        } catch (EmailAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro ao registrar usuário: " + e.getMessage());
+        }
     }
 
     @PatchMapping("/{id}")

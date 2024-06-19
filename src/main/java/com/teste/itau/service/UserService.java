@@ -1,5 +1,6 @@
 package com.teste.itau.service;
 
+import com.teste.itau.exception.EmailAlreadyExistsException;
 import com.teste.itau.model.User;
 import com.teste.itau.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser != null) {
+            throw new EmailAlreadyExistsException("O email já está cadastrado.");
+        }
+
         return userRepository.save(user);
     }
 
